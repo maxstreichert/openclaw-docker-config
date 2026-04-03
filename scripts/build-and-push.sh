@@ -13,6 +13,7 @@ fi
 GHCR_PREFIX="ghcr.io/${GHCR_USERNAME}/openclaw-docker-config"
 TAG="${1:-latest}"
 SHA=$(git -C "$REPO_ROOT" rev-parse --short HEAD)
+PLATFORM=linux/amd64
 
 echo "==> Validating config ..."
 "$REPO_ROOT/scripts/validate-config.sh"
@@ -25,24 +26,15 @@ GW_IMAGE="$GHCR_PREFIX/openclaw-gateway"
 echo "==> Building gateway image ..."
 echo "    Image: $GW_IMAGE"
 echo "    Tags:  $TAG, $SHA"
+echo "    Platform:  $PLATFORM"
 echo ""
 
-docker buildx build --platform linux/amd64 -f "$REPO_ROOT/docker/Dockerfile" -t "$GW_IMAGE:$TAG" -t "$GW_IMAGE:$SHA" --push "$REPO_ROOT"
+docker build -f "$REPO_ROOT/docker/Dockerfile" --platform "$PLATFORM" -t "$GW_IMAGE:$TAG" -t "$GW_IMAGE:$SHA" "$REPO_ROOT"
+docker push "$GW_IMAGE:$TAG"
+docker push "$GW_IMAGE:$SHA"
 
 echo ""
-echo "✓ Built and pushed $GW_IMAGE:$TAG (linux/amd64)"
-echo "✓ Built and pushed $GW_IMAGE:$SHA (linux/amd64)"
+echo "✓ Built and pushed $GW_IMAGE:$TAG ($PLATFORM)"
+echo "✓ Built and pushed $GW_IMAGE:$SHA ($PLATFORM)"
 
-# --- Workspace-sync image ---
-WS_IMAGE="$GHCR_PREFIX/workspace-sync"
-echo ""
-echo "==> Building workspace-sync image ..."
-echo "    Image: $WS_IMAGE"
-echo "    Tags:  $TAG, $SHA"
-echo ""
 
-docker buildx build --platform linux/amd64 -f "$REPO_ROOT/docker/workspace-sync/Dockerfile" -t "$WS_IMAGE:$TAG" -t "$WS_IMAGE:$SHA" --push "$REPO_ROOT/docker/workspace-sync"
-
-echo ""
-echo "✓ Built and pushed $WS_IMAGE:$TAG (linux/amd64)"
-echo "✓ Built and pushed $WS_IMAGE:$SHA (linux/amd64)"
