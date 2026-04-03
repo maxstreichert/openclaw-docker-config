@@ -1,9 +1,11 @@
 {
   "gateway": {
     "mode": "local",
-    "port": 18789
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
   },
-
   "channels": {
     "telegram": {
       "enabled": true,

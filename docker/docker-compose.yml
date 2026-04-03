@@ -46,4 +46,4 @@ services:
       - ${OPENCLAW_WORKSPACE_DIR:-/home/openclaw/.openclaw/workspace}:/home/node/.openclaw/workspace:rw
     ports:
       - "127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}:18789"
-    command: openclaw gateway --bind lan --port 18789
+    command: openclaw gateway --bind loopback --port 18789
