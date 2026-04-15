@@ -4,4 +4,5 @@
 credentials/
 sessions/
 node_modules/
+.cursor/
 .DS_Store
