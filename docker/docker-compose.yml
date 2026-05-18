@@ -1,6 +1,6 @@
 services:
   openclaw-gateway:
-    image: ghcr.io/${GHCR_USERNAME}/openclaw-docker-config/openclaw-gateway:latest
+    image: ghcr.io/${GHCR_USERNAME}/openclaw-docker-config/openclaw-gateway:ae1165a
     env_file: .env
     restart: unless-stopped
     # 1. Disable high-privilege access
