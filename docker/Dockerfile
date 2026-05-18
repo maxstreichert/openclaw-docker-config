@@ -26,9 +26,8 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   && apt-get update && apt-get install -y --no-install-recommends gh \
   && rm -rf /var/lib/apt/lists/*
 
-# Pin OpenClaw version for reproducible builds — bump explicitly when upgrading
-ARG OPENCLAW_VERSION=2026.4.2
-RUN npm install -g openclaw@${OPENCLAW_VERSION}
+# Install latest OpenClaw
+RUN npm install -g openclaw
 
 # Install ClawHub CLI for skill management
 RUN npm install -g clawhub
