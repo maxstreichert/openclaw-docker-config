@@ -28,19 +28,6 @@ services:
       HOME: /home/node
       NODE_ENV: production
       TERM: xterm-256color
-      GEMINI_API_KEY: ${GEMINI_API_KEY}
-      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
-      OPENCLAW_GATEWAY_PORT: ${OPENCLAW_GATEWAY_PORT:-18789}
-      OPENCLAW_GATEWAY_BIND: ${OPENCLAW_GATEWAY_BIND:-0.0.0.0}
-      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
-      BRAVE_API_KEY: ${BRAVE_API_KEY}
-      GH_TOKEN: ${GH_TOKEN:-}
-    # 5. Filesystem Hardening
-    # Mount root as read-only, but keep the workspace writable
-    read_only: true
-    tmpfs:
-      - /tmp:size=64M
-      - /run:size=16M
     volumes:
       - ${OPENCLAW_CONFIG_DIR:-/home/openclaw/.openclaw}:/home/node/.openclaw:rw
       - ${OPENCLAW_WORKSPACE_DIR:-/home/openclaw/.openclaw/workspace}:/home/node/.openclaw/workspace:rw
